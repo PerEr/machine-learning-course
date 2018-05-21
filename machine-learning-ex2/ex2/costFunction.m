@@ -21,11 +21,13 @@ grad = zeros(size(theta));
 %
 
 
+pred = sigmoid(X*theta)
+J = sum(-y .* log(pred) - (1-y) .* log(1-pred)) / m
 
 
-
-
-
+for j=1:size(grad)
+	grad(j) = sum((pred-y) .* X(:,j))  / m
+end
 
 % =============================================================
 
