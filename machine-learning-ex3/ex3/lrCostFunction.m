@@ -38,6 +38,23 @@ grad = zeros(size(theta));
 
 
 
+pred = sigmoid(X*theta);
+J1 = sum(-y .* log(pred) - (1-y) .* log(1-pred)) / m;
+J2 = lambda * sum(theta([2:end],:) .^ 2) / 2 / m;
+
+J = J1 + J2;
+
+
+%grad(1) = sum((pred-y) .* X(:,1))  / m
+%for j=2:size(grad)
+%	grad(j) = (sum((pred-y) .* X(:,j)) / m) + lambda*theta(j)/m
+%end
+
+theta2 = theta;
+theta2(1) = 0;
+
+grad = X'*(pred-y)/m + theta2*lambda/m;
+
 
 
 

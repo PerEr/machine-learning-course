@@ -22,10 +22,14 @@ p = zeros(size(X, 1), 1);
 %
 
 
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
+A2 = [ones(m, 1) sigmoid(X*Theta1')]
 
+O = sigmoid(A2*Theta2')
 
-
+[v,p]=max(O,[],2)
 
 
 
