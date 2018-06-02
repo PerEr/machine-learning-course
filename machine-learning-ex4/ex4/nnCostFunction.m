@@ -62,22 +62,24 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+Yk=diag(ones(10,1));
 
+errsum = 0;
+for i=1:m
+	in = X(i,:)';
+	a2 = sigmoid(Theta1 * [1 ; in]);
+	o = sigmoid(Theta2 * [1 ; a2]);
 
+	errsum = errsum - Yk(y(i),:)*log(o) - (1 - Yk(y(i),:))*log(1-o);
 
+end
 
+J = errsum / m;
 
-
-
-
-
-
-
-
-
-
-
-
+if (lambda > 0)
+	keyboard
+	J = J + lambda * (sum(Theta1(:) .^ 2) + sum(Theta2(:) .^ 2)) / 2 / m
+endif
 
 
 % -------------------------------------------------------------
