@@ -71,15 +71,14 @@ for i=1:m
 	o = sigmoid(Theta2 * [1 ; a2]);
 
 	errsum = errsum - Yk(y(i),:)*log(o) - (1 - Yk(y(i),:))*log(1-o);
-
 end
 
 J = errsum / m;
 
-if (lambda > 0)
-	keyboard
-	J = J + lambda * (sum(Theta1(:) .^ 2) + sum(Theta2(:) .^ 2)) / 2 / m
-endif
+Theta1nb=Theta1(:,2:end);  % Theta without the bias
+Theta2nb=Theta2(:,2:end);
+J2 = lambda * (sum(Theta1nb(:) .^ 2) + sum(Theta2nb(:) .^ 2)) / 2 / m;
+J = J + J2;
 
 
 % -------------------------------------------------------------
