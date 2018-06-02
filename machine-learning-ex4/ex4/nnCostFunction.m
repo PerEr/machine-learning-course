@@ -65,13 +65,27 @@ Theta2_grad = zeros(size(Theta2));
 Yk=diag(ones(size(Theta2)(1),1));
 
 errsum = 0;
+Delta1 = 0;
+Delta2 = 0;
+
 for i=1:m
 	in = X(i,:)';
-	a2 = sigmoid(Theta1 * [1 ; in]);
+	z2 = Theta1 * [1 ; in];
+	a2 = sigmoid(z2);
 	o = sigmoid(Theta2 * [1 ; a2]);
+	deltaerr = - Yk(y(i),:)*log(o) - (1 - Yk(y(i),:))*log(1-o);
+	errsum = errsum + deltaerr;
 
-	errsum = errsum - Yk(y(i),:)*log(o) - (1 - Yk(y(i),:))*log(1-o);
+	d3 = o - Yk(:,y(i));
+	d2 = (Theta2'*d3)(2:end) .* sigmoidGradient(z2);
+
+	Delta1 = Delta1 + d2 * in';
+	Delta2 = Delta2 + d3 * a2';
 end
+
+Theta1_grad=[zeros(size(Delta1)(1),1) Delta1] / m;
+Theta2_grad=[zeros(size(Delta2)(1),1) Delta2] / m;
+
 
 J = errsum / m;
 
@@ -79,6 +93,8 @@ Theta1nb=Theta1(:,2:end);  % Theta without the bias
 Theta2nb=Theta2(:,2:end);
 J2 = lambda * (sum(Theta1nb(:) .^ 2) + sum(Theta2nb(:) .^ 2)) / 2 / m;
 J = J + J2;
+
+
 
 
 % -------------------------------------------------------------
