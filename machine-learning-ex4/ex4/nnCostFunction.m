@@ -77,15 +77,14 @@ for i=1:m
 	errsum = errsum + deltaerr;
 
 	d3 = o - Yk(:,y(i));
-	d2 = (Theta2(:,2:end)'*d3) .* sigmoidGradient(z2);
+	d2 = (Theta2'*d3) .* [0;sigmoidGradient(z2)];
 
-	keyboard
-	Delta1 = Delta1 + d2 * in';
-	Delta2 = Delta2 + d3 * a2';
+	Delta1 = Delta1 + d2 * [1 ; in]';
+	Delta2 = Delta2 + d3 * [1 ; a2]';
 end
 
-Theta1_grad=[zeros(size(Delta1)(1),1) Delta1] / m;
-Theta2_grad=[zeros(size(Delta2)(1),1) Delta2] / m;
+Theta1_grad=Delta1(2:end,:) / m;
+Theta2_grad=Delta2 / m;
 
 
 J = errsum / m;
