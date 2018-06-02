@@ -62,7 +62,7 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-Yk=diag(ones(10,1));
+Yk=diag(ones(size(Theta2)(1),1));
 
 errsum = 0;
 for i=1:m
