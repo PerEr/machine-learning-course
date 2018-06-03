@@ -81,7 +81,13 @@ for i=1:m
 
 	Delta1 = Delta1 + d2 * [1 ; in]';
 	Delta2 = Delta2 + d3 * [1 ; a2]';
+
 end
+
+Theta1Exp = [zeros(1, size(Theta1)(2)) ; Theta1];
+Theta1Exp = [zeros(size(Theta1Exp)(1),1) Theta1Exp(:,2:end)];
+Delta1 = Delta1 + lambda * Theta1Exp; 
+Delta2 = Delta2 + lambda * [zeros(size(Theta2)(1),1) Theta2(:,2:end)];
 
 Theta1_grad=Delta1(2:end,:) / m;
 Theta2_grad=Delta2 / m;
