@@ -20,6 +20,16 @@ grad = zeros(size(theta));
 %
 
 
+e = X * theta - y;
+J1 = sum(e .* e) / 2 / m;
+J2 = sum((theta .*  theta)(2:end)) * lambda / 2 / m;
+J = J1 + J2;
+
+delta = (X*theta-y);
+act = [0;ones(size(theta)(1)-1,1)];
+for j=1:size(grad)
+	grad(j) = (sum(delta .* X(:,j)) + lambda * theta(j) * act(j)) / m;
+end
 
 
 
