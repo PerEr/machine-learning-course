@@ -16,8 +16,7 @@ sim = 0;
 %
 %
 
-
-
+sim=exp(-norm(x2-x1)^2/sigma/sigma/2)
 
 
 
