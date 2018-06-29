@@ -60,12 +60,14 @@ J=sum(sum(((X*Theta'-Y) .* R) .^ 2)) / 2;
 
 err = (X*Theta'-Y) .* R;
 
-X_grad= err * Theta;
+X_grad= err * Theta + lambda * X;
 
-Theta_grad=err' * X;
+Theta_grad=err' * X + lambda * Theta; 
 
 
+regJ = lambda * (sum(sum(X.^2)) + sum(sum(Theta.^2))) / 2;
 
+J = J + regJ;
 
 % =============================================================
 
