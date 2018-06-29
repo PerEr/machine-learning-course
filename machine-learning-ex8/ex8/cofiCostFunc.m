@@ -44,13 +44,25 @@ Theta_grad = zeros(size(Theta));
 
 
 
+J=sum(sum(((X*Theta'-Y) .* R) .^ 2)) / 2;
 
 
 
+%for j=1:size(grad)
+%	grad(j) = sum((pred-y) .* X(:,j))  / m
+%end
+
+%grad = (sum((pred-y) .* X) / m)'
 
 
 
+% X_grad=(X*Theta' - Y)'*Theta;
 
+err = (X*Theta'-Y) .* R;
+
+X_grad= err * Theta;
+
+Theta_grad=err' * X;
 
 
 
